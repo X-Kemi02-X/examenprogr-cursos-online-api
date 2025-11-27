@@ -53,5 +53,19 @@ export class CursosService {
     mensaje = 'Excelente dedicación';
   }
   return { totalHoras, promedio: Math.round(promedio * 100) / 100, mensaje };
+  }
+  aprobacion(notas: number[], notaMinima: number) {
+  let suma = 0;
+  for (let i = 0; i < notas.length; i++) {
+    suma += Number(notas[i]); // convertir por seguridad
+  }
+  const promedioRaw = suma / notas.length;
+  const promedio = Math.round(promedioRaw * 100) / 100; 
+  const estado = promedio >= notaMinima ? 'Aprobado' : 'Reprobado';
+  const mensaje = estado === 'Aprobado'
+    ? `Promedio ${promedio} ≥ ${notaMinima} → Felicitaciones, estás aprobado.`
+    : `Promedio ${promedio} < ${notaMinima} → Lo siento, no alcanzaste la nota mínima.`;
+
+  return { promedio, estado, mensaje };
 }
 }

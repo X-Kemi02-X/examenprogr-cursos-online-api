@@ -35,4 +35,12 @@ export class CursosController {
   horasSemanales(@Body() body: { horasPorDia: number[] }) {
   return this.cursosService.horasSemanales(body.horasPorDia);
   }
+  @Post('reportes/aprobacion')
+  aprobacion(@Body() body: { notas: number[]; notaMinima: number }) {
+  const { notas, notaMinima } = body;
+  if (!Array.isArray(notas) || notas.length < 3 || notas.length > 5) {
+    return { error: 'notas debe ser un arreglo de 3 a 5 números' };
+  }
+  return this.cursosService.aprobacion(notas, Number(notaMinima));
+}
 }
