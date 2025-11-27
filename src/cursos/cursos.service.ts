@@ -37,4 +37,21 @@ export class CursosService {
     if (!curso) return null;
     return this.cursoRepository.remove(curso);
   }
+  horasSemanales(horasPorDia: number[]) {
+  let totalHoras = 0;
+  for (let i = 0; i < horasPorDia.length; i++) {
+    totalHoras += Number(horasPorDia[i]); 
+  }
+  const promedio = totalHoras / 7;
+  let mensaje = '';
+
+  if (promedio < 1) {
+    mensaje = 'Estás estudiando muy poco';
+  } else if (promedio <= 3) {
+    mensaje = 'Buen ritmo de estudio';
+  } else {
+    mensaje = 'Excelente dedicación';
+  }
+  return { totalHoras, promedio: Math.round(promedio * 100) / 100, mensaje };
+}
 }

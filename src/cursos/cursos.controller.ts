@@ -31,4 +31,8 @@ export class CursosController {
   remove(@Param('id') id: string) {
     return this.cursosService.remove(id);
   }
+  @Post('reportes/horas-semanales')
+  horasSemanales(@Body() body: { horasPorDia: number[] }) {
+  return this.cursosService.horasSemanales(body.horasPorDia);
+  }
 }
